@@ -34,8 +34,6 @@ export default async function QuestionPage({ params, searchParams }) {
   }
 
   return (      
-      <div className="flex-grow flex items-center justify-center p-4 md:p-8">
-        <QuizCard question={question} />
-      </div>      
+    <QuizCard question={question} />
   );
 }

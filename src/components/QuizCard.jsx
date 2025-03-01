@@ -5,6 +5,7 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import AnswerOption from './Answer/AnswerOption';
 import NavigationButtons from './NavigationButtons';
 import TranslationToggle from './TranslationToggle';
+import QuestionProgress from './Question/QuestionProgress';
 
 const QuizCard = ({ question }) => {
   const router = useRouter();
@@ -67,31 +68,22 @@ const QuizCard = ({ question }) => {
   };
 
   return (
-    <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-      <div className="grid grid-cols-1 md:grid-cols-12">
-        {/* Left side - Header and navigation */}
-        <div className="md:col-span-4 bg-indigo-600 p-6 text-white">
-          <h2 className="text-2xl font-bold mb-4">Quiz Challenge</h2>
-          
+    <div className="w-full min-h-screen flex flex-col md:flex-column">
+
+      <div className="p-6 flex justify-center">
+        <div className="w-full max-w-4xl">
+          <QuestionProgress total={question.statistic?.total} current={question.statistic?.current} />
+        </div>
+      </div>
+
+      {/* Main content - Takes remaining width with some padding */}
+      <div className="flex-1 p-6 flex justify-center">
+        <div className="w-full max-w-4xl p-6">
+
           <div className="mb-6">
-            <div className="flex items-center text-sm mb-2">
+            <div className="flex items-center text-gray-800 text-sm mb-2">
               <span>{question.title}</span>
             </div>
-            
-          </div>
-          
-          <div className="mt-auto">
-            <TranslationToggle 
-              showTranslation={showTranslation} 
-              toggleTranslation={toggleTranslation} 
-              theme="light"
-            />
-          </div>
-        </div>
-        
-        {/* Right side - Question content */}
-        <div className="md:col-span-8 p-6">
-          <div className="mb-6">
             <h1 className="text-2xl font-bold text-gray-800">{question.question}</h1>
             {showTranslation && question.translation && (
               <p className="mt-2 text-lg text-indigo-600 italic">{question.translation}</p>
@@ -113,11 +105,18 @@ const QuizCard = ({ question }) => {
           </div>
 
           {/* Action buttons */}
-          <NavigationButtons
-            question={question}
-            allowNext={allowNext}
-            navigateTo={navigateTo}
-          />
+          <div className="flex justify-between items-center mt-8">
+            <NavigationButtons
+              question={question}
+              allowNext={allowNext}
+              navigateTo={navigateTo}
+            />
+            <TranslationToggle
+              showTranslation={showTranslation}
+              toggleTranslation={toggleTranslation}
+            />
+          </div>
+
         </div>
       </div>
     </div>

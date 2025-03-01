@@ -22,6 +22,7 @@ const LanguageSelector = () => {
     <select
       onChange={(e) => handleLocaleChange(e.target.value)}
       defaultValue={searchParams.get('locale') || 'en'}
+      className="text-sm font-medium mr-2 text-gray-700"
     >
       <option value="en">English</option>
       <option value="tr">Türkçe</option>

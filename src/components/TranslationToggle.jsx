@@ -1,4 +1,5 @@
 import React from 'react';
+import LanguageSelector from "@/components/Language/LanguageSelector";
 
 const TranslationToggle = ({ showTranslation, toggleTranslation, theme = 'dark' }) => {
   const textColor = theme === 'light' ? 'text-white' : 'text-gray-700';
@@ -7,8 +8,12 @@ const TranslationToggle = ({ showTranslation, toggleTranslation, theme = 'dark' 
 
   return (
     <div className="flex items-center">
+       {showTranslation && <LanguageSelector />}
       <span className={`text-sm font-medium mr-2 ${textColor}`}>
-        {showTranslation ? 'Translation' : 'Translation'}
+        Translation
+        {showTranslation ? ' On' : ' Off'}
+      </span>
+      <span>
       </span>
       <button
         onClick={toggleTranslation}
