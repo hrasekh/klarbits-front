@@ -66,68 +66,59 @@ const QuizCard = ({ question }) => {
     router.push(`/questions/${questionData.uuid}?${newParams.toString()}`);
   };
 
-  console.log(question);
-
   return (
-    <div className="w-full max-w-xl bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-      {/* Header with progress */}
-      <div className="bg-indigo-600 px-6 py-4 text-white relative">
-        <div className="flex justify-between items-center">
-          <h2 className="text-xl font-semibold">Quiz Challenge</h2>
-          <span className="bg-indigo-500 px-3 py-1 rounded-full text-xs font-medium">
-            {!question.next_question ? "Final Question" : "Question"}
-          </span>
+    <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+      <div className="grid grid-cols-1 md:grid-cols-12">
+        {/* Left side - Header and navigation */}
+        <div className="md:col-span-4 bg-indigo-600 p-6 text-white">
+          <h2 className="text-2xl font-bold mb-4">Quiz Challenge</h2>
+          
+          <div className="mb-6">
+            <div className="flex items-center text-sm mb-2">
+              <span>{question.title}</span>
+            </div>
+            
+          </div>
+          
+          <div className="mt-auto">
+            <TranslationToggle 
+              showTranslation={showTranslation} 
+              toggleTranslation={toggleTranslation} 
+              theme="light"
+            />
+          </div>
         </div>
+        
+        {/* Right side - Question content */}
+        <div className="md:col-span-8 p-6">
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-gray-800">{question.question}</h1>
+            {showTranslation && question.translation && (
+              <p className="mt-2 text-lg text-indigo-600 italic">{question.translation}</p>
+            )}
+          </div>
 
-        {/* Progress dots */}
-        <div className="mt-3 flex space-x-1">
-          {question.previous_question && (
-            <div className="h-1 w-8 rounded-full bg-indigo-300"></div>
-          )}
-          <div className="h-1 w-16 rounded-full bg-indigo-200"></div>
-          {question.next_question && (
-            <div className="h-1 w-8 rounded-full bg-indigo-300"></div>
-          )}
-        </div>
-      </div>
+          {/* Answer options */}
+          <div className="space-y-3 mb-8">
+            {question.answers.map((answer) => (
+              <AnswerOption
+                key={answer.id}
+                answer={answer}
+                selectedAnswer={selectedAnswer}
+                handleAnswerSelect={handleAnswerSelect}
+                isSelectionEnabled={!selectedAnswer}
+                showTranslation={showTranslation}
+              />
+            ))}
+          </div>
 
-      {/* Question content */}
-      <div className="p-6">
-        {/* Translation toggle */}
-        <div className="flex justify-between items-center mb-4">
-          <TranslationToggle 
-            showTranslation={showTranslation} 
-            toggleTranslation={toggleTranslation} 
+          {/* Action buttons */}
+          <NavigationButtons
+            question={question}
+            allowNext={allowNext}
+            navigateTo={navigateTo}
           />
         </div>
-
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">{question.question}</h1>
-          {showTranslation && question.translation && (
-            <p className="mt-2 text-lg text-indigo-600 italic">{question.translation}</p>
-          )}
-        </div>
-
-        {/* Answer options */}
-        <div className="space-y-3 mb-6">
-          {question.answers.map((answer) => (
-            <AnswerOption
-              key={answer.id}
-              answer={answer}
-              selectedAnswer={selectedAnswer}
-              handleAnswerSelect={handleAnswerSelect}
-              isSelectionEnabled={!selectedAnswer}
-              showTranslation={showTranslation}
-            />
-          ))}
-        </div>
-
-        {/* Action buttons */}
-        <NavigationButtons
-          question={question}
-          allowNext={allowNext}
-          navigateTo={navigateTo}
-        />
       </div>
     </div>
   );

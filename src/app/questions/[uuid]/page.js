@@ -1,32 +1,14 @@
-// src/app/questions/[uuid]/page.js
 import React from 'react';
 import { notFound } from 'next/navigation';
 import QuizCard from '@/components/QuizCard';
 
-// Define metadata export function for better SEO
-export async function generateMetadata({ params }) {
-  // Await the params object before accessing properties
-  const resolvedParams = await params;
-  const question = await fetchQuestion(resolvedParams.uuid);
-  
-  if (!question) {
-    return {
-      title: 'Question Not Found - Quiz App',
-    };
-  }
-  
-  return {
-    title: `${question.question} - Quiz App`,
-    description: `Answer the question: ${question.question}`,
-  };
-}
-
-// Fetch function placed outside component for better reusability
-async function fetchQuestion(uuid) {
+async function fetchQuestion(uuid, locale = 'en') {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/questions/${uuid}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/questions/${uuid}?locale=${locale}`, {
       next: { revalidate: 10 },
     });
+
+    console.log("response", response);
 
     if (!response.ok) {
       console.error(`HTTP error! status: ${response.status}`);
@@ -40,19 +22,20 @@ async function fetchQuestion(uuid) {
   }
 }
 
-export default async function QuestionPage({ params }) {
-  // Await the params object before accessing properties
+export default async function QuestionPage({ params, searchParams }) {
   const resolvedParams = await params;
   const uuid = resolvedParams.uuid;
-  const question = await fetchQuestion(uuid);
+  const locale = searchParams?.locale || 'en';
+  
+  const question = await fetchQuestion(uuid, locale);
 
   if (!question) {
     notFound();
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4">
-      <QuizCard question={question} />
-    </div>
+  return (      
+      <div className="flex-grow flex items-center justify-center p-4 md:p-8">
+        <QuizCard question={question} />
+      </div>      
   );
 }

@@ -9,7 +9,7 @@ const AnswerOption = ({ answer, selectedAnswer, handleAnswerSelect, isSelectionE
   return (
     <div
       onClick={() => isSelectionEnabled && handleAnswerSelect(answer.id)}
-      className={`${bgColor} ${borderColor} ${textColor} border-2 rounded-lg p-4 flex items-start transition-all duration-200 ${cursorStyle}`}
+      className={`${bgColor} ${borderColor} ${textColor} border-2 rounded-lg p-4 flex items-start transition-all duration-200 ${cursorStyle} hover:shadow-md`}
     >
       <div className={`flex-shrink-0 w-8 h-8 mr-4 mt-0.5 rounded-full flex items-center justify-center border-2 ${borderColor} ${iconColor}`}>
         {selectedAnswer && answer.is_correct && (
