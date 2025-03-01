@@ -1,15 +1,6 @@
-// src/components/NavigationButtons.jsx
 import React from 'react';
-import { useRouter } from 'next/navigation';
 
-const NavigationButtons = ({ question, allowNext }) => {
-  const router = useRouter();
-
-  const navigateTo = (questionData) => {
-    if (!questionData) return;
-    router.push(`/questions/${questionData.uuid}`);
-  };
-
+const NavigationButtons = ({ question, allowNext, navigateTo }) => {
   return (
     <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8">
       <div className="flex space-x-3 w-full sm:w-auto">

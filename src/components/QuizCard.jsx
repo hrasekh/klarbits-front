@@ -1,18 +1,25 @@
-// src/components/QuizCard.jsx
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import AnswerOption from './Answer/AnswerOption';
 import NavigationButtons from './NavigationButtons';
+import TranslationToggle from './TranslationToggle';
 
 const QuizCard = ({ question }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  
+  // Get the initial showTranslation state from URL or default to false
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [allowNext, setAllowNext] = useState(false);
-  const router = useRouter();
+  const [showTranslation, setShowTranslation] = useState(
+    searchParams.get('showTranslation') === 'true'
+  );
 
   useEffect(() => {
-    // Reset state when question changes
+    // Reset selection state when question changes
     setSelectedAnswer(null);
     setAllowNext(false);
   }, [question.uuid]);
@@ -24,10 +31,42 @@ const QuizCard = ({ question }) => {
     }
   };
 
+  const toggleTranslation = () => {
+    const newShowTranslation = !showTranslation;
+    setShowTranslation(newShowTranslation);
+    
+    // Update URL with new showTranslation state
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set('showTranslation', newShowTranslation.toString());
+    
+    // Preserve existing locale parameter if it exists
+    const locale = searchParams.get('locale');
+    if (locale) {
+      newParams.set('locale', locale);
+    }
+    
+    // Update URL without reloading the page
+    router.push(`${pathname}?${newParams.toString()}`, { scroll: false });
+  };
+
+  // Create a custom navigateTo function to preserve translation state
   const navigateTo = (questionData) => {
     if (!questionData) return;
-    router.push(`/questions/${questionData.uuid}`);
+    
+    // Build new URL with translation parameter preserved
+    const newParams = new URLSearchParams();
+    newParams.set('showTranslation', showTranslation.toString());
+    
+    // Preserve existing locale parameter if it exists
+    const locale = searchParams.get('locale');
+    if (locale) {
+      newParams.set('locale', locale);
+    }
+    
+    router.push(`/questions/${questionData.uuid}?${newParams.toString()}`);
   };
+
+  console.log(question);
 
   return (
     <div className="w-full max-w-xl bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
@@ -54,7 +93,20 @@ const QuizCard = ({ question }) => {
 
       {/* Question content */}
       <div className="p-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">{question.question}</h1>
+        {/* Translation toggle */}
+        <div className="flex justify-between items-center mb-4">
+          <TranslationToggle 
+            showTranslation={showTranslation} 
+            toggleTranslation={toggleTranslation} 
+          />
+        </div>
+
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">{question.question}</h1>
+          {showTranslation && question.translation && (
+            <p className="mt-2 text-lg text-indigo-600 italic">{question.translation}</p>
+          )}
+        </div>
 
         {/* Answer options */}
         <div className="space-y-3 mb-6">
@@ -64,7 +116,8 @@ const QuizCard = ({ question }) => {
               answer={answer}
               selectedAnswer={selectedAnswer}
               handleAnswerSelect={handleAnswerSelect}
-              isSelectionEnabled={!selectedAnswer} // Pass prop to disable click
+              isSelectionEnabled={!selectedAnswer}
+              showTranslation={showTranslation}
             />
           ))}
         </div>
@@ -72,8 +125,8 @@ const QuizCard = ({ question }) => {
         {/* Action buttons */}
         <NavigationButtons
           question={question}
-          navigateTo={navigateTo}
           allowNext={allowNext}
+          navigateTo={navigateTo}
         />
       </div>
     </div>
