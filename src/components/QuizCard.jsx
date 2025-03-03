@@ -103,22 +103,25 @@ const QuizCard = ({ question }) => {
               />
             ))}
           </div>
-
-          {/* Action buttons */}
-          <div className="flex justify-between items-center mt-8">
+        </div>
+      </div>
+      
+      <div className="p-4 flex justify-center fixed bottom-0 w-full bg-white border-t border-gray-200">
+        {/* Action buttons */}
+        <div className="flex justify-between items-center">
             <NavigationButtons
               question={question}
               allowNext={allowNext}
               navigateTo={navigateTo}
             />
+            <span className="ml-6 mr-6">|</span>
             <TranslationToggle
               showTranslation={showTranslation}
               toggleTranslation={toggleTranslation}
             />
           </div>
-
         </div>
-      </div>
+
     </div>
   );
 };
