@@ -36,8 +36,8 @@ export default function RootLayout({
              </div>
            </header> */}
           {children}
-          <footer className="bg-gray-100 py-4 text-center text-gray-500 mt-auto">
-            © {new Date().getFullYear()} AI Teacher
+          <footer className="w-full py-6 border-t border-gray-200 text-center text-gray-500">
+            <p>© {new Date().getFullYear()} Einbürgerungstest Practice App</p>
           </footer>
         </div>
       </body>

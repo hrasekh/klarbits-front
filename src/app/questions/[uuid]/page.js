@@ -8,8 +8,6 @@ async function fetchQuestion(uuid, locale = 'en') {
       next: { revalidate: 10 },
     });
 
-    console.log("response", response);
-
     if (!response.ok) {
       console.error(`HTTP error! status: ${response.status}`);
       return null;

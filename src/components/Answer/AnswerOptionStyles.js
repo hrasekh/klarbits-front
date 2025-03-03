@@ -20,6 +20,7 @@ export const getAnswerOptionStyles = (answer, selectedAnswer, isSelectionEnabled
       } else {
         bgColor = "bg-gray-50";
         textColor = "text-gray-500";
+        borderColor = "border-gray-200";
       }
     }
   

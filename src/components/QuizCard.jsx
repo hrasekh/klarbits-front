@@ -77,7 +77,7 @@ const QuizCard = ({ question }) => {
       </div>
 
       {/* Main content - Takes remaining width with some padding */}
-      <div className="flex-1 p-6 flex justify-center">
+      <div className="flex-1 flex justify-center">
         <div className="w-full max-w-4xl p-6">
 
           <div className="mb-6">
