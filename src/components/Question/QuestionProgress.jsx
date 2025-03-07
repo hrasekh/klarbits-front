@@ -10,7 +10,7 @@ function QuestionProgress({ total, current }) {
   };
 
   return (
-    <div className="w-full pt-6 flex items-center"> 
+    <div className="w-full flex items-center"> 
       <button
         className="pr-6 cursor-pointer z-10 text-gray-500 hover:text-gray-700" // Removed absolute positioning, adjust padding as needed
         onClick={handleClose}

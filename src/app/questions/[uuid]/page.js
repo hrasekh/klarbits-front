@@ -23,7 +23,8 @@ async function fetchQuestion(uuid, locale = 'en') {
 export default async function QuestionPage({ params, searchParams }) {
   const resolvedParams = await params;
   const uuid = resolvedParams.uuid;
-  const locale = searchParams?.locale || 'en';
+  const resolvedSearchParams = await searchParams;
+  const locale = resolvedSearchParams?.locale || 'en';
   
   const question = await fetchQuestion(uuid, locale);
 

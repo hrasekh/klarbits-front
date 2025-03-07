@@ -71,20 +71,20 @@ const QuizCard = ({ question }) => {
     <div className="w-full min-h-screen flex flex-col md:flex-column">
 
       <div className="p-6 flex justify-center">
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-6xl">
           <QuestionProgress total={question.statistic?.total} current={question.statistic?.current} />
         </div>
       </div>
 
       {/* Main content - Takes remaining width with some padding */}
       <div className="flex-1 flex justify-center">
-        <div className="w-full max-w-4xl p-6">
+        <div className="w-full max-w-6xl p-6">
 
           <div className="mb-6">
             <div className="flex items-center text-gray-800 text-sm mb-2">
               <span>{question.title}</span>
             </div>
-            <h1 className="text-2xl font-bold text-gray-800">{question.question}</h1>
+            <h1 className="text-xl font-bold text-gray-800">{question.question}</h1>
             {showTranslation && question.translation && (
               <p className="mt-2 text-lg text-indigo-600 italic">{question.translation}</p>
             )}
@@ -108,7 +108,7 @@ const QuizCard = ({ question }) => {
       
       <div className="p-4 flex justify-center fixed bottom-0 w-full bg-white border-t border-gray-200">
         {/* Action buttons */}
-        <div className="flex justify-between items-center">
+        <div className="flex items-center">
             <NavigationButtons
               question={question}
               allowNext={allowNext}
