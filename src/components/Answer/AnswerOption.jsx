@@ -1,6 +1,6 @@
 import React from 'react';
-import CorrectIcon from '@/components/icons/CorrectIcon';
-import IncorrectIcon from '@/components/icons/IncorrectIcon';
+import CorrectIcon from '@/components/Icons/CorrectIcon';
+import IncorrectIcon from '@/components/Icons/IncorrectIcon';
 import { getAnswerOptionStyles } from './AnswerOptionStyles';
 
 const AnswerOption = ({ answer, selectedAnswer, handleAnswerSelect, isSelectionEnabled, showTranslation }) => {
