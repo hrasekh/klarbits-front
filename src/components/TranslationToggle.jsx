@@ -8,12 +8,9 @@ const TranslationToggle = ({ showTranslation, toggleTranslation, theme = 'dark' 
 
   return (
     <div className="flex items-center">
-       {showTranslation && <LanguageSelector />}
       <span className={`text-sm font-medium mr-2 ${textColor}`}>
         Translation
         {showTranslation ? ' On' : ' Off'}
-      </span>
-      <span>
       </span>
       <button
         onClick={toggleTranslation}
@@ -26,6 +23,9 @@ const TranslationToggle = ({ showTranslation, toggleTranslation, theme = 'dark' 
           } inline-block w-4 h-4 transform ${switchBgColor} rounded-full transition-transform`}
         />
       </button>
+      <span className='ml-2'>
+        {showTranslation && <LanguageSelector />}
+      </span>
     </div>
   );
 };
