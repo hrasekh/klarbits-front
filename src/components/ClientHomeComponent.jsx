@@ -20,7 +20,7 @@ function StartPracticeButton({ initialUuid }) {
   return (
     <Link href={`/questions/${questionUuid || initialUuid}`}>
       <button className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg text-lg shadow-md transition-colors duration-300 w-64 h-32 flex items-center justify-center">
-        {questionUuid ? 'Continue Practice' : 'Start Practice'}
+        {questionUuid !== initialUuid ? 'Continue Practice' : 'Start Practice'}
       </button>
     </Link>
   );
