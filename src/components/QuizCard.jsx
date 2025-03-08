@@ -20,6 +20,23 @@ const QuizCard = ({ question }) => {
   );
 
   useEffect(() => {
+    if (question?.uuid) {
+      localStorage.setItem('currentQuestionUuid', question.uuid);
+      
+      // Also store other relevant state if needed
+      const questionState = {
+        uuid: question.uuid,
+        showTranslation: showTranslation,
+        locale: searchParams.get('locale') || 'en',
+        lastVisited: new Date().toISOString()
+      };
+      
+      localStorage.setItem('questionState', JSON.stringify(questionState));
+    }
+  }, [question?.uuid, showTranslation, searchParams]);
+
+
+  useEffect(() => {
     // Reset selection state when question changes
     setSelectedAnswer(null);
     setAllowNext(false);
