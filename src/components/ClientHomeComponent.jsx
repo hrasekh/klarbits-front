@@ -17,12 +17,23 @@ function StartPracticeButton({ initialUuid }) {
     }
   }, []);
 
+  const continueBt = questionUuid !== initialUuid;
+
   return (
-    <Link href={`/questions/${questionUuid || initialUuid}`}>
-      <button className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg text-lg shadow-md transition-colors duration-300 w-64 h-32 flex items-center justify-center">
-        {questionUuid !== initialUuid ? 'Continue Practice' : 'Start Practice'}
-      </button>
-    </Link>
+    <div className="flex flex-row gap-4">
+      <Link href={`/questions/${initialUuid}`}>
+        <button className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-lg text-lg shadow-md transition-colors duration-300 w-64 h-16 flex items-center justify-center">
+          {'Start Practice'}
+        </button>
+      </Link>
+      {continueBt && (
+        <Link href={`/questions/${questionUuid}`}>
+          <button className="cursor-pointer bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg text-lg shadow-md transition-colors duration-300 w-64 h-16 flex items-center justify-center">
+          {'Continue Practice'}
+        </button>
+        </Link>
+      )}
+    </div>
   );
 }
 
