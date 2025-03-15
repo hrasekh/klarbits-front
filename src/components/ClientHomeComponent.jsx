@@ -21,7 +21,7 @@ function StartPracticeButton({ initialUuid }) {
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl mx-auto">
-      <Link href={`/questions/${initialUuid}`} className="w-full sm:w-1/2">
+      <Link href={`/questions/${initialUuid}`} className={`w-full ${!continueBt ? '' : 'sm:w-1/2'}`}>
         <button className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 sm:py-4 px-4 sm:px-6 rounded-lg text-base sm:text-lg shadow-md transition-colors duration-300 w-full h-12 sm:h-16 flex items-center justify-center">
           {'Start Practice'}
         </button>
