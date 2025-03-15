@@ -1,4 +1,3 @@
-// src/components/LanguageSelector.jsx
 "use client";
 
 import React from 'react';
@@ -8,6 +7,13 @@ const LanguageSelector = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const languages = [
+    { code: 'en', flag: '🇬🇧', name: 'English' },
+    { code: 'tr', flag: '🇹🇷', name: 'Türkçe' },
+    { code: 'fa', flag: '🇮🇷', name: 'فارسی' },
+    { code: 'ar', flag: '🇸🇦', name: 'العربية' }
+  ];
 
   const handleLocaleChange = (newLocale) => {
     // Create a new URL with the updated locale
@@ -23,11 +29,14 @@ const LanguageSelector = () => {
       onChange={(e) => handleLocaleChange(e.target.value)}
       defaultValue={searchParams.get('locale') || 'en'}
       className="text-sm font-medium mr-2 text-gray-700"
+      style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
     >
-      <option value="en">English</option>
-      <option value="tr">Türkçe</option>
-      <option value="fa">فارسی</option>
-      <option value="ar">العربية</option>
+      {languages.map((lang) => (
+        <option key={lang.code} value={lang.code}>
+          <span className='mr-6'>{lang.flag}</span>
+          <span>{lang.name}</span>
+        </option>
+      ))}
     </select>
   );
 };
