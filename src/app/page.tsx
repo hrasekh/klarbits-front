@@ -1,5 +1,11 @@
 // src/app/page.tsx
 import ClientHomeComponent from '@/components/ClientHomeComponent';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Klarbits - Einbürgerungstest Practice',
+  description: 'Practice for your German citizenship test (Einbürgerungstest)',
+};
 
 async function fetchHome() {
   try {
