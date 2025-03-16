@@ -3,13 +3,21 @@ import { notFound } from 'next/navigation';
 import QuizCard from '@/components/QuizCard';
 import { Metadata } from 'next';
 
-interface Question {
-  id: string;
-  title: string;
-  content: string;
-}
+// interface Question {
+//   id: string;
+//   title: string;
+//   content: string;
+//   uuid: string;
+//   question: string;
+//   translation?: string;
+//   answers: any[];
+//   statistic?: {
+//     total: number;
+//     current: number;
+//   };
+// }
 
-async function fetchQuestion({uuid, locale = 'en'}: {uuid: string, locale: string}): Promise<Question | null> {
+async function fetchQuestion({uuid, locale = 'en'}) {
   try {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/questions/${uuid}?locale=${locale}`, {
       next: { revalidate: 10 },
@@ -30,10 +38,7 @@ async function fetchQuestion({uuid, locale = 'en'}: {uuid: string, locale: strin
 export async function generateMetadata({ 
   params, 
   searchParams 
-}: { 
-  params: { uuid: string }, 
-  searchParams: { locale?: string } 
-}): Promise<Metadata> {
+}) {
   const uuid = params.uuid;
   const locale = searchParams?.locale || 'en';
   
@@ -52,13 +57,9 @@ export async function generateMetadata({
   };
 }
 
-export default async function QuestionPage({ 
-  params, 
-  searchParams 
-}: { 
-  params: { uuid: string }, 
-  searchParams: { locale?: string } 
-}) {
+// Define the page component without type annotations
+export default async function QuestionPage(props) {
+  const { params, searchParams } = props;
   const uuid = params.uuid;
   const locale = searchParams?.locale || 'en';
   
