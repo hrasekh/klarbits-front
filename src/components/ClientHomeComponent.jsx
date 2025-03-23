@@ -1,7 +1,6 @@
 'use client';
 
 // components/ClientHomeComponent.jsx
-import Head from 'next/head';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -40,19 +39,13 @@ function StartPracticeButton({ initialUuid }) {
 export default function ClientHomeComponent({ initialUuid }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-      <Head>
-        <title>Einbürgerungstest Practice</title>
-        <meta name="description" content="Practice for your German citizenship test (Einbürgerungstest)" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main className="flex flex-col items-center justify-center w-full flex-1 px-4 sm:px-20 text-center">
         <h1 className="text-4xl font-bold text-gray-800 mb-6">
-          Einbürgerungstest Practice
+          Klarbits | Leben in Deutschland & Einbürgerungstest Practice
         </h1>
         
         <p className="text-lg text-gray-600 max-w-md mb-8">
-          Prepare for your German citizenship test with our comprehensive practice questions and study materials.
+        Practice for your German citizenship test (Einbürgerungstest) and "Leben in Deutschland" test.
         </p>
         
         {/* Use the client-side button component */}
