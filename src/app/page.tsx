@@ -3,8 +3,8 @@ import ClientHomeComponent from '@/components/ClientHomeComponent';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Klarbits - Einbürgerungstest Practice',
-  description: 'Practice for your German citizenship test (Einbürgerungstest)',
+  title: 'Klarbits - Leben in Deutschland & Einbürgerungstest Practice',
+  description: 'Practice for your German citizenship test (Einbürgerungstest) and "Leben in Deutschland" test.',
 };
 
 async function fetchHome() {
