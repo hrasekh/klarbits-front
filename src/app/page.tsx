@@ -1,7 +1,6 @@
 // src/app/page.tsx
 import ClientHomeComponent from '@/components/ClientHomeComponent';
 import { Metadata } from 'next';
-import Head from 'next/head';
 
 export const metadata: Metadata = {
   title: 'Klarbits | Leben in Deutschland & Einbürgerungstest Practice',
