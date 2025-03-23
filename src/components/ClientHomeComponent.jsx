@@ -41,8 +41,8 @@ export default function ClientHomeComponent({ initialUuid }) {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 to-gray-100">
       <div className="absolute top-0 w-full h-2 bg-gradient-to-r from-blue-500 via-green-500 to-blue-500"></div>
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-4 sm:px-20 text-center py-12">
-        <div className="mb-6 transform hover:scale-105 transition-transform duration-300">
+      <main className="flex flex-col items-center justify-center w-full flex-1 px-4 sm:px-20 text-center pt-20 pb-12">
+        <div className="mb-6 mt-6 transform hover:scale-105 transition-transform duration-300">
           <h1 className="text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-green-700 mb-2">
             Leben in Deutschland
           </h1>
