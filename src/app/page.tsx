@@ -9,7 +9,9 @@ export const metadata: Metadata = {
 
 async function fetchHome() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/home`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/home`, {
+      next: { revalidate: 60 },
+    });
 
     if (!response.ok) {
       console.error(`HTTP error! status: ${response.status}`);
