@@ -41,27 +41,30 @@ export default function ClientHomeComponent({ initialUuid }) {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
       <main className="flex flex-col items-center justify-center w-full flex-1 px-4 sm:px-20 text-center">
         <h1 className="text-4xl font-bold text-gray-800 mb-6">
-          Klarbits | Leben in Deutschland & Einbürgerungstest Practice
+          Leben in Deutschland | Einbürgerungstest
         </h1>
-        
+
         <p className="text-lg text-gray-600 max-w-md mb-8">
-        Practice for your German citizenship test (Einbürgerungstest) and "Leben in Deutschland" test.
+          Prepare for your Leben in Deutschland & Einbürgerungstest!
         </p>
-        
+        <p>
+          Access comprehensive practice tests, study materials, and expert tips to confidently pass your German citizenship and integration exams. Start your journey to German citizenship today.
+        </p>
+
         {/* Use the client-side button component */}
         <StartPracticeButton initialUuid={initialUuid} />
-        
+
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-left max-w-4xl">
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl text-gray-800 font-semibold mb-2">312 Questions</h2>
             <p className="text-gray-600">Practice all of the official question pool for the Einbürgerungstest.</p>
           </div>
-          
+
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl text-gray-800 font-semibold mb-2">Realistic Format</h2>
             <p className="text-gray-600">Experience the test in conditions similar to the actual examination.</p>
           </div>
-          
+
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl text-gray-800 font-semibold mb-2">Track Progress</h2>
             <p className="text-gray-600">Monitor your learning and see improvement over time.</p>
