@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,17 +27,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      > 
-          <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex flex-col">
-
-          {/* <header className="bg-black shadow py-4">
-             <div className="container mx-auto px-4 flex justify-between items-center">
-               <h1 className="text-2xl font-bold">AI Teacher</h1>
-               <LanguageSelector /> 
-             </div>
-           </header> */}
+      >
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex flex-col">
           {children}
-          
+          {process.env.NEXT_PUBLIC_GA_ENABLED !== 'false' && (
+            <GoogleAnalytics gaId={`${process.env.NEXT_PUBLIC_GA_ID}`} />
+          )}
         </div>
       </body>
     </html>
