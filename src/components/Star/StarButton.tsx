@@ -40,8 +40,10 @@ const StarButton = ({ question }: StarButtonProps) => {
       // Remove from starred questions
       updatedStarredQuestions = starredQuestions.filter((uuid: string) => uuid !== currentQuestionUuid);
       
-      const { [currentQuestionUuid]: _, ...restQuestions } = questionDetails;
+      const restQuestions = { ...questionDetails };
+      delete restQuestions[currentQuestionUuid]; 
       localStorage.setItem('questionDetails', JSON.stringify(restQuestions));
+      
     } else {
       // Add to starred questions
       updatedStarredQuestions = [...starredQuestions, currentQuestionUuid];

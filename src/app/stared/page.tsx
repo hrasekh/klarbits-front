@@ -65,7 +65,8 @@ const StarredQuestionsPage = () => {
     // Optionally remove from questionDetails localStorage
     const questionDetails = JSON.parse(localStorage.getItem('questionDetails') || '{}');
     if (questionDetails[uuid]) {
-      const { [uuid]: _, ...restQuestions } = questionDetails;
+      const restQuestions = { ...questionDetails };
+      delete restQuestions[uuid]; // Removes the key without assigning the value
       localStorage.setItem('questionDetails', JSON.stringify(restQuestions));
     }
   };
@@ -91,7 +92,7 @@ const StarredQuestionsPage = () => {
           <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-4xl mx-auto">
             <div className="flex flex-col items-center justify-center h-64">
               <div className="text-yellow-500 text-6xl mb-4">⭐</div>
-              <p className="text-gray-600 mb-8 text-lg">You haven't starred any questions yet</p>
+              <p className="text-gray-600 mb-8 text-lg">You haven&apos;t starred any questions yet</p>
             </div>
           </div>
         ) : (
