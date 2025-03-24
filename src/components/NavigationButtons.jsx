@@ -1,5 +1,6 @@
 import React from 'react';
 import StarButton from './Star/StarButton';
+import HomeButton from './Home/HomeButton';
 
 const NavigationButtons = ({ question, allowNext, navigateTo }) => {
   return (
@@ -31,7 +32,7 @@ const NavigationButtons = ({ question, allowNext, navigateTo }) => {
         )}
 
         <StarButton question={question} />
-
+        <HomeButton />
       </div>
     </div>
   );

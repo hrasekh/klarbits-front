@@ -11,7 +11,6 @@ interface StarButtonProps {
 }
 
 const StarButton = ({ question }: StarButtonProps) => {
-  console.log('StarButton rendered', question);
   const [isStarred, setIsStarred] = useState(false);
 
   useEffect(() => {
