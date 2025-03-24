@@ -22,7 +22,7 @@ const NavigationButtons = ({ question, allowNext, navigateTo }) => {
         {question.next_question && (
           <button
             onClick={() => navigateTo(question.next_question)}
-            className={`w-full sm:w-auto px-4 py-2 rounded-lg flex items-center justify-center transition-colors border border-indigo-200 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 cursor-pointer`}
+            className={`w-full sm:w-auto px-4 py-2 rounded-lg flex items-center justify-center transition-colors border ${allowNext ? " border-green-300 bg-green-100 hover:bg-green-200" : " border-indigo-200 bg-indigo-50 hover:bg-indigo-100"} text-indigo-600 cursor-pointer`}
           >
             <span className="hidden sm:inline mr-1">{allowNext ? "Next" : "Skip"}</span>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -32,7 +32,7 @@ const NavigationButtons = ({ question, allowNext, navigateTo }) => {
         )}
 
         <StarButton question={question} />
-        <HomeButton />
+        {/* <HomeButton /> */}
       </div>
     </div>
   );

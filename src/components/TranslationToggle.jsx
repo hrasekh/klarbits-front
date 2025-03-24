@@ -32,7 +32,7 @@ const TranslationToggle = ({ showTranslation, toggleTranslation, theme = 'dark' 
           } inline-block w-4 h-4 transform ${switchBgColor} rounded-full transition-transform`}
         />
       </button>
-      <span className='ml-2'>
+      <span>
         {showTranslation && <LanguageSelector />}
       </span>
     </div>
