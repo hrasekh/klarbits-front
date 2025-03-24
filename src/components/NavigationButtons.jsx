@@ -1,9 +1,11 @@
 import React from 'react';
+import StarButton from './Star/StarButton';
 
 const NavigationButtons = ({ question, allowNext, navigateTo }) => {
   return (
     <div>
       <div className="flex space-x-3 w-full sm:w-auto">
+
         {question.previous_question && (
           <button
             onClick={() => navigateTo(question.previous_question)}
@@ -27,6 +29,9 @@ const NavigationButtons = ({ question, allowNext, navigateTo }) => {
             </svg>
           </button>
         )}
+
+        <StarButton question={question} />
+
       </div>
     </div>
   );

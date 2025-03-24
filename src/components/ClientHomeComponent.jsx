@@ -22,13 +22,20 @@ function StartPracticeButton({ initialUuid }) {
     <div className="flex flex-col sm:flex-row gap-4 w-full max-w-2xl mx-auto">
       <Link href={`/questions/${initialUuid}`} className={`w-full ${!continueBt ? '' : 'sm:w-1/2'}`}>
         <button className="cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 sm:py-4 px-6 rounded-lg text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full h-14 sm:h-16 flex items-center justify-center transform hover:-translate-y-1">
-          Start Practice
+          Start {continueBt ? 'Over' : 'Practice'}
         </button>
       </Link>
       {continueBt && (
         <Link href={`/questions/${questionUuid}`} className="w-full sm:w-1/2">
           <button className="cursor-pointer bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold py-3 sm:py-4 px-6 rounded-lg text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full h-14 sm:h-16 flex items-center justify-center transform hover:-translate-y-1">
-            Continue Practice
+            Continue
+          </button>
+        </Link>
+      )}
+      {continueBt && (
+        <Link href={"/stared"} className="w-full sm:w-1/2">
+          <button className="cursor-pointer bg-gradient-to-r from-yellow-600 to-yellow-700 text-white font-semibold py-3 sm:py-4 px-6 rounded-lg text-base sm:text-lg shadow-lg hover:shadow-xl transition-all duration-300 w-full h-14 sm:h-16 flex items-center justify-center transform hover:-translate-y-1">
+            Stared Questions
           </button>
         </Link>
       )}
