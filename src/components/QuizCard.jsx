@@ -6,12 +6,13 @@ import AnswerOption from './Answer/AnswerOption';
 import NavigationButtons from './NavigationButtons';
 import TranslationToggle from './TranslationToggle';
 import QuestionProgress from './Question/QuestionProgress';
+import { playWrongAnswerSound, cleanupSounds } from '@/utils/soundUtils';
 
 const QuizCard = ({ question }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  
+
   // Get the initial showTranslation state from URL or default to false
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [allowNext, setAllowNext] = useState(false);
@@ -22,7 +23,7 @@ const QuizCard = ({ question }) => {
   useEffect(() => {
     if (question?.uuid) {
       localStorage.setItem('currentQuestionUuid', question.uuid);
-      
+
       // Also store other relevant state if needed
       const questionState = {
         uuid: question.uuid,
@@ -30,7 +31,7 @@ const QuizCard = ({ question }) => {
         locale: searchParams.get('locale') || 'en',
         lastVisited: new Date().toISOString()
       };
-      
+
       localStorage.setItem('questionState', JSON.stringify(questionState));
     }
   }, [question?.uuid, showTranslation, searchParams]);
@@ -42,27 +43,38 @@ const QuizCard = ({ question }) => {
     setAllowNext(false);
   }, [question.uuid]);
 
-  const handleAnswerSelect = (answerId) => {
+  useEffect(() => {
+    // Cleanup when component unmounts
+    return () => {
+      cleanupSounds();
+    };
+  }, []);
+
+
+  const handleAnswerSelect = (answerId, is_correct) => {
     if (!selectedAnswer) { // Only allow selection if no answer is currently selected
       setSelectedAnswer(answerId);
       setAllowNext(true); // Enable next button immediately on selection
+      if (!is_correct) {
+        playWrongAnswerSound();
+      }
     }
   };
 
   const toggleTranslation = () => {
     const newShowTranslation = !showTranslation;
     setShowTranslation(newShowTranslation);
-    
+
     // Update URL with new showTranslation state
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.set('showTranslation', newShowTranslation.toString());
-    
+
     // Preserve existing locale parameter if it exists
     const locale = searchParams.get('locale');
     if (locale) {
       newParams.set('locale', locale);
     }
-    
+
     // Update URL without reloading the page
     router.push(`${pathname}?${newParams.toString()}`, { scroll: false });
   };
@@ -70,17 +82,17 @@ const QuizCard = ({ question }) => {
   // Create a custom navigateTo function to preserve translation state
   const navigateTo = (questionData) => {
     if (!questionData) return;
-    
+
     // Build new URL with translation parameter preserved
     const newParams = new URLSearchParams();
     newParams.set('showTranslation', showTranslation.toString());
-    
+
     // Preserve existing locale parameter if it exists
     const locale = searchParams.get('locale');
     if (locale) {
       newParams.set('locale', locale);
     }
-    
+
     router.push(`/questions/${questionData.uuid}?${newParams.toString()}`);
   };
 
@@ -122,7 +134,7 @@ const QuizCard = ({ question }) => {
           </div>
         </div>
       </div>
-      
+
       <div className="p-4 flex justify-center fixed bottom-0 w-full bg-white border-t border-gray-200">
         {/* Centered container with same max width as content */}
         <div className="w-full max-w-6xl flex justify-between items-center">
