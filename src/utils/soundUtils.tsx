@@ -42,6 +42,11 @@ export const playWrongAnswerSound = (): Promise<void> => {
   return playSound(soundPath);
 };
 
+export const playCorrectAnswerSound = (): Promise<void> => {
+  const soundPath = '/correct.mp3';
+  return playSound(soundPath);
+}
+
 /**
  * Cleanup function to stop all sounds and clear references
  */

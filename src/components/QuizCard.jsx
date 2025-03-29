@@ -6,7 +6,7 @@ import AnswerOption from './Answer/AnswerOption';
 import NavigationButtons from './NavigationButtons';
 import TranslationToggle from './TranslationToggle';
 import QuestionProgress from './Question/QuestionProgress';
-import { playWrongAnswerSound, cleanupSounds } from '@/utils/soundUtils';
+import { playWrongAnswerSound, playCorrectAnswerSound, cleanupSounds } from '@/utils/soundUtils';
 
 const QuizCard = ({ question }) => {
   const router = useRouter();
@@ -57,6 +57,8 @@ const QuizCard = ({ question }) => {
       setAllowNext(true); // Enable next button immediately on selection
       if (!is_correct) {
         playWrongAnswerSound();
+      }else{
+        playCorrectAnswerSound();
       }
     }
   };
