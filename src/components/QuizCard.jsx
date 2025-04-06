@@ -128,7 +128,7 @@ const QuizCard = ({ question }) => {
           </div>
 
           {/* Question Image - Display if available */}
-          {question.image && (
+          {question.image?.medium && (
             <div className="mb-6 flex justify-center">
               <div className="relative w-full max-w-lg h-64 md:h-80 rounded overflow-hidden shadow-md">
                 <Image
