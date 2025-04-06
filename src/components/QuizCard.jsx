@@ -8,6 +8,7 @@ import NavigationButtons from './NavigationButtons';
 import TranslationToggle from './TranslationToggle';
 import QuestionProgress from './Question/QuestionProgress';
 import { playWrongAnswerSound, playCorrectAnswerSound, cleanupSounds } from '@/utils/soundUtils';
+import { rtlByLocale } from '@/utils/rtl';
 
 const QuizCard = ({ question }) => {
   const router = useRouter();
@@ -58,7 +59,7 @@ const QuizCard = ({ question }) => {
       setAllowNext(true); // Enable next button immediately on selection
       if (!is_correct) {
         playWrongAnswerSound();
-      }else{
+      } else {
         playCorrectAnswerSound();
       }
     }
@@ -118,7 +119,11 @@ const QuizCard = ({ question }) => {
             </div>
             <h1 className="text-xl font-bold text-gray-800">{question.question}</h1>
             {showTranslation && question.translation && (
-              <p className="mt-2 text-lg text-indigo-600 italic">{question.translation}</p>
+              <div dir={rtlByLocale(question.locale) ? 'rtl' : 'ltr'}>
+                <p className={`mt-2 text-lg text-indigo-600 italic`}>
+                  {question.translation}
+                </p>
+              </div>
             )}
           </div>
 
@@ -126,8 +131,8 @@ const QuizCard = ({ question }) => {
           {question.image && (
             <div className="mb-6 flex justify-center">
               <div className="relative w-full max-w-lg h-64 md:h-80 rounded overflow-hidden shadow-md">
-                <Image 
-                  src={question.image.medium} 
+                <Image
+                  src={question.image.medium}
                   alt="Question image"
                   fill
                   sizes="(max-width: 768px) 100vw, 700px"
@@ -148,6 +153,7 @@ const QuizCard = ({ question }) => {
                 handleAnswerSelect={handleAnswerSelect}
                 isSelectionEnabled={!selectedAnswer}
                 showTranslation={showTranslation}
+                locale={question.locale}
               />
             ))}
           </div>
