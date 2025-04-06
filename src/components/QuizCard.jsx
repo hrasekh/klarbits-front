@@ -10,7 +10,6 @@ import QuestionProgress from './Question/QuestionProgress';
 import { playWrongAnswerSound, playCorrectAnswerSound, cleanupSounds } from '@/utils/soundUtils';
 import { rtlByLocale } from '@/utils/rtl';
 
-// Define a key for storing answers in localStorage
 const QUIZ_ANSWERS_STORAGE_KEY = 'quizUserAnswers';
 
 const QuizCard = ({ question }) => {
