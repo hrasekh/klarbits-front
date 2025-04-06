@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+import Image from 'next/image';
 import AnswerOption from './Answer/AnswerOption';
 import NavigationButtons from './NavigationButtons';
 import TranslationToggle from './TranslationToggle';
@@ -99,7 +100,7 @@ const QuizCard = ({ question }) => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col md:flex-column">
+    <div className="w-full min-h-screen flex flex-col md:flex-column pb-24">
 
       <div className="p-6 flex justify-center">
         <div className="w-full max-w-6xl">
@@ -120,6 +121,22 @@ const QuizCard = ({ question }) => {
               <p className="mt-2 text-lg text-indigo-600 italic">{question.translation}</p>
             )}
           </div>
+
+          {/* Question Image - Display if available */}
+          {question.image && (
+            <div className="mb-6 flex justify-center">
+              <div className="relative w-full max-w-lg h-64 md:h-80 rounded overflow-hidden shadow-md">
+                <Image 
+                  src={question.image.medium} 
+                  alt="Question image"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 700px"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </div>
+          )}
 
           {/* Answer options */}
           <div className="space-y-3 mb-8">
