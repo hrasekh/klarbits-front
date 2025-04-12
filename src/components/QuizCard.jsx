@@ -12,7 +12,7 @@ import { rtlByLocale } from '@/utils/rtl';
 
 const QUIZ_ANSWERS_STORAGE_KEY = 'quizUserAnswers';
 
-const QuizCard = ({ question }) => {
+const QuizCard = ({ question, meta }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -120,6 +120,7 @@ const QuizCard = ({ question }) => {
     newParams.set('showTranslation', showTranslation.toString());
     const locale = searchParams.get('locale');
     if (locale) newParams.set('locale', locale);
+    newParams.set('condition', 1);
 
     router.push(`/questions/${questionData.uuid}?${newParams.toString()}`);
   };
@@ -131,7 +132,7 @@ const QuizCard = ({ question }) => {
       {/* Progress Bar */}
       <div className="p-6 flex justify-center">
         <div className="w-full max-w-6xl">
-          <QuestionProgress total={question.statistic?.total} current={question.statistic?.current} />
+          <QuestionProgress total={meta.statistic?.total} current={meta.statistic?.current} />
         </div>
       </div>
 
@@ -154,7 +155,6 @@ const QuizCard = ({ question }) => {
             )}
           </div>
 
-          {/* Question Image */}
           {question.image?.medium && (
             <div className="mb-6 flex justify-center">
               <div className="relative w-full max-w-lg h-64 md:h-80 rounded overflow-hidden shadow-md">
@@ -187,7 +187,6 @@ const QuizCard = ({ question }) => {
         </div>
       </div>
 
-      {/* Bottom Navigation Bar */}
       <div className="p-4 flex justify-center fixed bottom-0 w-full bg-white border-t border-gray-200">
         <div className="w-full max-w-6xl flex justify-between items-center">
           <div>
@@ -199,6 +198,7 @@ const QuizCard = ({ question }) => {
           <div>
             <NavigationButtons
               question={question}
+              meta={meta}
               allowNext={allowNext}
               navigateTo={navigateTo}
             />

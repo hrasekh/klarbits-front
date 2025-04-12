@@ -63,13 +63,13 @@ export default async function QuestionPage(props) {
   const uuid = params.uuid;
   const locale = searchParams?.locale || 'en';
   
-  const question = await fetchQuestion({uuid, locale});
+  const data = await fetchQuestion({uuid, locale});
 
-  if (!question) {
+  if (!data) {
     notFound();
   }
 
   return (      
-    <QuizCard question={question} />
+    <QuizCard question={data.question} meta={data.meta} />
   );
 }
