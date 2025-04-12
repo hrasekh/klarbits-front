@@ -147,7 +147,7 @@ const QuizCard = ({ question, meta }) => {
             </div>
             <h1 className="text-xl font-bold text-gray-800">{question.question}</h1>
             {showTranslation && question.translation && (
-              <div dir={rtlByLocale(question.locale) ? 'rtl' : 'ltr'}>
+              <div dir={rtlByLocale(meta.locale) ? 'rtl' : 'ltr'}>
                 <p className={`mt-2 text-lg text-indigo-600 italic`}>
                   {question.translation}
                 </p>
@@ -180,7 +180,7 @@ const QuizCard = ({ question, meta }) => {
                 handleAnswerSelect={handleAnswerSelect}
                 isSelectionEnabled={!selectedAnswer} // Disable selection if an answer is already selected/restored
                 showTranslation={showTranslation}
-                locale={question.locale}
+                locale={meta.locale}
               />
             ))}
           </div>
