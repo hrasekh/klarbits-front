@@ -43,7 +43,7 @@ export default function ClientHomeComponent({ initialUuid }) {
           {/* Feature 1 */}
           <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-blue-500 flex flex-col">
             <div className="text-blue-500 text-4xl mb-4">📚</div>
-            <h2 className="text-xl text-gray-800 font-semibold mb-3">312 Questions</h2>
+            <h2 className="text-xl text-gray-800 font-semibold mb-3">310 Questions</h2>
             <p className="text-gray-600 flex-grow">Practice with the complete official question pool for the Einbürgerungstest.</p>
           </div>
 
