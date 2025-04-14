@@ -1,27 +1,15 @@
 import React from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import QuizCard from '@/components/QuizCard';
-import { Metadata } from 'next';
 
-// interface Question {
-//   id: string;
-//   title: string;
-//   content: string;
-//   uuid: string;
-//   question: string;
-//   translation?: string;
-//   answers: any[];
-//   statistic?: {
-//     total: number;
-//     current: number;
-//   };
-// }
 
-async function fetchQuestion({uuid, locale = 'en'}) {
+async function fetchQuestion({uuid, locale = 'en', condition}) {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/questions/${uuid}?locale=${locale}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/questions/${uuid}?locale=${locale}&condition=${condition}`, {
       next: { revalidate: 10 },
     });
+
+    console.log('Response URL from:', `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/questions/${uuid}?locale=${locale}&condition=${condition}`);
 
     if (!response.ok) {
       console.error(`HTTP error! status: ${response.status}`);
@@ -41,8 +29,9 @@ export async function generateMetadata({
 }) {
   const uuid = params.uuid;
   const locale = searchParams?.locale || 'en';
+  const condition = searchParams?.condition || null;
   
-  const question = await fetchQuestion({uuid, locale});
+  const question = await fetchQuestion({uuid, locale, condition});
   
   if (!question) {
     return {
@@ -62,8 +51,14 @@ export default async function QuestionPage(props) {
   const { params, searchParams } = props;
   const uuid = params.uuid;
   const locale = searchParams?.locale || 'en';
+  const condition = searchParams?.condition || null;
+
+  if (!condition) {
+    redirect(`/state-selection?uuid=${uuid}`);
+  }
   
-  const data = await fetchQuestion({uuid, locale});
+  const data = await fetchQuestion({uuid, locale, condition});
+
 
   if (!data) {
     notFound();

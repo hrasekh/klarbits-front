@@ -1,4 +1,5 @@
 import { useRouter, useSearchParams } from 'next/navigation';
+import { getUserState } from '@/utils/localStorage';
 
 /**
  * Custom hook for handling quiz navigation
@@ -16,7 +17,13 @@ const useQuizNavigation = (showTranslation) => {
     const locale = searchParams.get('locale');
     if (locale) newParams.set('locale', locale);
     
-    newParams.set('condition', 1);
+    // Get condition from either current URL or localStorage
+    const currentCondition = searchParams.get('condition');
+    const stateId = currentCondition || getUserState();
+    
+    if (stateId !== null) {
+      newParams.set('condition', stateId);
+    }
 
     router.push(`/questions/${questionData.uuid}?${newParams.toString()}`);
   };
