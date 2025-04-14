@@ -1,34 +1,28 @@
-'use client';
+// app/state-selection/page.tsx (or your actual page file path)
 
-import { useSearchParams } from 'next/navigation';
-import StateSelection from '@/components/StateSelection';
+import React, { Suspense } from 'react'; // Import Suspense
+import StateSelectionClientWrapper from '@/components/StateSelectionClientWrapper'; // Adjust path
+
+function LoadingStateSelection() {
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <div
+        role="status"
+        aria-live="polite"
+        className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-600"
+      >
+        <span className="sr-only">Loading state selection...</span>
+      </div>
+    </div>
+  );
+}
 
 export default function StateSelectionPage() {
-  const searchParams = useSearchParams();
-  const initialUuid = searchParams.get('uuid') || '';
-
-  if (!initialUuid) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center p-8 max-w-lg">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">Missing Question ID</h2>
-          <p className="text-gray-700 mb-6">
-            Unable to proceed without a valid question ID. Please return to the home page and try again.
-          </p>
-          <a 
-            href="/"
-            className="inline-block bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg"
-          >
-            Return to Home
-          </a>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <main>
-      <StateSelection initialUuid={initialUuid} />
+      <Suspense fallback={<LoadingStateSelection />}>
+        <StateSelectionClientWrapper />
+      </Suspense>
     </main>
   );
 }
