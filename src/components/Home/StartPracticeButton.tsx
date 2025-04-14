@@ -1,9 +1,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
-// Define constants for localStorage keys
-const QUIZ_ANSWERS_STORAGE_KEY = 'quizUserAnswers';
-const CURRENT_QUESTION_UUID_KEY = 'currentQuestionUuid';
+import { CURRENT_QUESTION_UUID_KEY, QUIZ_ANSWERS_STORAGE_KEY } from '@/utils/storageKeys';
 
 // --- Client-side component to handle localStorage and buttons ---
 export const StartPracticeButton = ({ initialUuid }: { initialUuid: string }) => {
