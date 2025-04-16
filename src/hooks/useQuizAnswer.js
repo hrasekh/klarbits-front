@@ -26,7 +26,7 @@ const useQuizAnswer = (questionUuid) => {
   }, [questionUuid]);
 
   // Handle answer selection
-  const handleAnswerSelect = (answerId, is_correct) => {
+  const handleAnswerSelect = (answerId, is_correct, question) => {
     if (!selectedAnswer) {
       setSelectedAnswer(answerId);
       setAllowNext(true);
@@ -45,6 +45,8 @@ const useQuizAnswer = (questionUuid) => {
         recordWrongAnswer(
           questionUuid,
           answerId,
+          question.title,
+          question.question,
         );
 
       }

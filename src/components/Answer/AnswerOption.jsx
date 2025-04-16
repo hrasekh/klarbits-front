@@ -4,13 +4,13 @@ import IncorrectIcon from '@/components/Icons/IncorrectIcon';
 import { getAnswerOptionStyles } from './AnswerOptionStyles';
 import { rtlByLocale } from '@/utils/rtl';
 
-const AnswerOption = ({ answer, selectedAnswer, handleAnswerSelect, isSelectionEnabled, showTranslation, locale }) => {
+const AnswerOption = ({ answer, selectedAnswer, handleAnswerSelect, isSelectionEnabled, showTranslation, locale, question }) => {
   const { bgColor, borderColor, textColor, iconColor, cursorStyle } = getAnswerOptionStyles(answer, selectedAnswer, isSelectionEnabled);
   const isRtl = rtlByLocale(locale);
 
   return (
     <div
-      onClick={() => isSelectionEnabled && handleAnswerSelect(answer.id, answer.is_correct)}
+      onClick={() => isSelectionEnabled && handleAnswerSelect(answer.id, answer.is_correct, question)}
       className={`${bgColor} ${borderColor} ${textColor} border-2 rounded-lg p-4 flex items-start transition-all duration-200 ${cursorStyle} hover:shadow-md`}
     >
       <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center border-2 ${borderColor} ${iconColor}`}>

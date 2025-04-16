@@ -87,6 +87,7 @@ const QuizCard = ({ question, meta }) => {
                 isSelectionEnabled={!selectedAnswer}
                 showTranslation={showTranslation}
                 locale={meta.locale}
+                question={question}
               />
             ))}
           </div>

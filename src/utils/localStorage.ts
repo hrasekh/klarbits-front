@@ -17,6 +17,8 @@ interface WrongAnswer {
   questionUuid: string;
   userAnswer: string | number;
   date: string;
+  title: string;
+  question: string;
 }
 
 /**
@@ -116,7 +118,7 @@ export const clearQuizData = (): boolean => {
     localStorage.setItem(QUIZ_ANSWERS_STORAGE_KEY, JSON.stringify({}));
     localStorage.removeItem(CURRENT_QUESTION_UUID_KEY);
     localStorage.removeItem(QUESTION_STATE_KEY);
-    // Don't remove USER_STATE_SELECTION_KEY so users don't need to select state again
+    localStorage.removeItem(WRONG_ANSWERS_STORAGE_KEY); 
     return true;
   } catch (error) {
     console.error("Failed to clear quiz data:", error);
@@ -145,7 +147,9 @@ export const hasSavedProgress = (): boolean => {
 
 export const recordWrongAnswer = (
   questionUuid: string, 
-  userAnswer: string | number
+  userAnswer: string | number,
+  title: string,
+  question: string
 ): boolean => {
   try {
     const wrongAnswersRaw = localStorage.getItem(WRONG_ANSWERS_STORAGE_KEY);
@@ -159,6 +163,8 @@ export const recordWrongAnswer = (
       wrongAnswers[existingIndex] = {
         questionUuid,
         userAnswer,
+        title,
+        question,
         date: new Date().toISOString()
       };
     } else {
@@ -166,6 +172,8 @@ export const recordWrongAnswer = (
       wrongAnswers.push({
         questionUuid,
         userAnswer,
+        title,
+        question,
         date: new Date().toISOString()
       });
     }
@@ -251,7 +259,7 @@ export const resetAllQuizData = (): boolean => {
     localStorage.removeItem(CURRENT_QUESTION_UUID_KEY);
     localStorage.removeItem(QUESTION_STATE_KEY);
     localStorage.removeItem(USER_STATE_SELECTION_KEY);
-    localStorage.removeItem(WRONG_ANSWERS_STORAGE_KEY); // Add this line
+    localStorage.removeItem(WRONG_ANSWERS_STORAGE_KEY); 
     return true;
   } catch (error) {
     console.error("Failed to reset all quiz data:", error);
