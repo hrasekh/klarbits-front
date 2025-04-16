@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getUserAnswer, saveUserAnswer } from '@/utils/localStorage';
 import { playWrongAnswerSound, playCorrectAnswerSound } from '@/utils/soundUtils';
+import { recordWrongAnswer } from '@/utils/localStorage';
 
 /**
  * Custom hook for managing quiz answer selection and state
@@ -40,6 +41,12 @@ const useQuizAnswer = (questionUuid) => {
         playCorrectAnswerSound();
       } else {
         playWrongAnswerSound();
+
+        recordWrongAnswer(
+          questionUuid,
+          answerId,
+        );
+
       }
     }
   };

@@ -1,8 +1,9 @@
 import { 
   QUIZ_ANSWERS_STORAGE_KEY, 
+  WRONG_ANSWERS_STORAGE_KEY,
   CURRENT_QUESTION_UUID_KEY, 
   QUESTION_STATE_KEY,
-  USER_STATE_SELECTION_KEY 
+  USER_STATE_SELECTION_KEY
 } from './storageKeys';
 
 interface QuestionState {
@@ -10,6 +11,12 @@ interface QuestionState {
   showTranslation: boolean;
   locale: string;
   lastVisited: string;
+}
+
+interface WrongAnswer {
+  questionUuid: string;
+  userAnswer: string | number;
+  date: string;
 }
 
 /**
@@ -118,23 +125,6 @@ export const clearQuizData = (): boolean => {
 };
 
 /**
- * Completely resets all quiz and preference data
- * This is more aggressive than clearQuizData as it also removes state selection
- */
-export const resetAllQuizData = (): boolean => {
-  try {
-    localStorage.setItem(QUIZ_ANSWERS_STORAGE_KEY, JSON.stringify({}));
-    localStorage.removeItem(CURRENT_QUESTION_UUID_KEY);
-    localStorage.removeItem(QUESTION_STATE_KEY);
-    localStorage.removeItem(USER_STATE_SELECTION_KEY);
-    return true;
-  } catch (error) {
-    console.error("Failed to reset all quiz data:", error);
-    return false;
-  }
-};
-
-/**
  * Checks if the user has any saved progress
  * Returns true if there are saved answers
  */
@@ -151,4 +141,120 @@ export const hasSavedProgress = (): boolean => {
     console.error("Error checking for saved progress:", error);
   }
   return false;
+};
+
+export const recordWrongAnswer = (
+  questionUuid: string, 
+  userAnswer: string | number
+): boolean => {
+  try {
+    const wrongAnswersRaw = localStorage.getItem(WRONG_ANSWERS_STORAGE_KEY);
+    const wrongAnswers: WrongAnswer[] = wrongAnswersRaw ? JSON.parse(wrongAnswersRaw) : [];
+    
+    // Check if this question is already in wrong answers
+    const existingIndex = wrongAnswers.findIndex(item => item.questionUuid === questionUuid);
+    
+    if (existingIndex >= 0) {
+      // Update existing entry
+      wrongAnswers[existingIndex] = {
+        questionUuid,
+        userAnswer,
+        date: new Date().toISOString()
+      };
+    } else {
+      // Add new entry
+      wrongAnswers.push({
+        questionUuid,
+        userAnswer,
+        date: new Date().toISOString()
+      });
+    }
+    
+    localStorage.setItem(WRONG_ANSWERS_STORAGE_KEY, JSON.stringify(wrongAnswers));
+    return true;
+  } catch (error) {
+    console.error("Failed to save wrong answer to localStorage:", error);
+    return false;
+  }
+};
+
+/**
+ * Gets all wrong answers
+ */
+export const getWrongAnswers = (): WrongAnswer[] => {
+  try {
+    const wrongAnswersRaw = localStorage.getItem(WRONG_ANSWERS_STORAGE_KEY);
+    return wrongAnswersRaw ? JSON.parse(wrongAnswersRaw) : [];
+  } catch (error) {
+    console.error("Failed to get wrong answers from localStorage:", error);
+    return [];
+  }
+};
+
+/**
+ * Checks if there are any wrong answers saved
+ */
+export const hasWrongAnswers = (): boolean => {
+  try {
+    const wrongAnswersRaw = localStorage.getItem(WRONG_ANSWERS_STORAGE_KEY);
+    if (wrongAnswersRaw) {
+      const wrongAnswers = JSON.parse(wrongAnswersRaw);
+      return Array.isArray(wrongAnswers) && wrongAnswers.length > 0;
+    }
+    return false;
+  } catch (error) {
+    console.error("Error checking for wrong answers:", error);
+    return false;
+  }
+};
+
+/**
+ * Remove a specific wrong answer by questionUuid
+ */
+export const removeWrongAnswer = (questionUuid: string): boolean => {
+  try {
+    const wrongAnswersRaw = localStorage.getItem(WRONG_ANSWERS_STORAGE_KEY);
+    if (wrongAnswersRaw) {
+      const wrongAnswers: WrongAnswer[] = JSON.parse(wrongAnswersRaw);
+      const updatedWrongAnswers = wrongAnswers.filter(item => item.questionUuid !== questionUuid);
+      localStorage.setItem(WRONG_ANSWERS_STORAGE_KEY, JSON.stringify(updatedWrongAnswers));
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("Failed to remove wrong answer:", error);
+    return false;
+  }
+};
+
+/**
+ * Clears all wrong answers
+ */
+export const clearWrongAnswers = (): boolean => {
+  try {
+    localStorage.setItem(WRONG_ANSWERS_STORAGE_KEY, JSON.stringify([]));
+    return true;
+  } catch (error) {
+    console.error("Failed to clear wrong answers:", error);
+    return false;
+  }
+};
+
+
+/**
+ * Completely resets all quiz and preference data
+ * This is more aggressive than clearQuizData as it also removes state selection
+ */
+export const resetAllQuizData = (): boolean => {
+  try {
+    localStorage.setItem(QUIZ_ANSWERS_STORAGE_KEY, JSON.stringify({}));
+    localStorage.removeItem(CURRENT_QUESTION_UUID_KEY);
+    localStorage.removeItem(QUESTION_STATE_KEY);
+    localStorage.removeItem(USER_STATE_SELECTION_KEY);
+    localStorage.removeItem(WRONG_ANSWERS_STORAGE_KEY); // Add this line
+    return true;
+  } catch (error) {
+    console.error("Failed to reset all quiz data:", error);
+    return false;
+  }
 };
