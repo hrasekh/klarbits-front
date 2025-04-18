@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import PageWrapper from '@/components/layout/PageWrapper';
-import PageTitle from '@/components/ui/PageTitle';
 
 export default function NotFound() {
     return (
