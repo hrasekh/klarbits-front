@@ -103,8 +103,6 @@ const StarredQuestionsPage = () => {
     <PageWrapper topBarGradient={{ from: 'from-blue-500', via: 'via-green-500', to: 'to-blue-500' }}>
       <PageTitle
         title="Starred Questions"
-        // Using default gradient, but could customize like this:
-        // gradientColors={{ from: 'from-blue-700', via: 'via-green-700', to: 'to-blue-700' }}
       />
 
       {isLoading ? (
