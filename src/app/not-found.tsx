@@ -20,7 +20,7 @@ export default function NotFound() {
             </div>
 
             <p className="text-lg text-gray-700 max-w-md mb-10 leading-relaxed">
-                The page you are looking for doesn't exist or has been moved.
+                The page you are looking for doesn&apos;t exist or has been moved.
             </p>
 
             <Link href="/">
